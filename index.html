@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Música</title>
+<title>Nuestra canción</title>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 
 body{
     margin:0;
@@ -18,81 +21,229 @@ body{
     font-family:Arial, sans-serif;
 }
 
+
+/* CONTENEDOR PRINCIPAL */
+
 .player{
-    width:320px;
-    padding:20px;
-    border-radius:25px;
-    background:rgba(255,255,255,0.7);
-    backdrop-filter:blur(10px);
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
-    text-align:center;
+
+    width:420px;
+    height:85px;
+
+    background:#f1f3f4;
+
+    border-radius:999px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 25px;
+
+    gap:18px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.12);
+
 }
 
 
-button{
-    width:70px;
-    height:70px;
+
+/* TITULO */
+
+.title{
+
+    position:absolute;
+
+    margin-top:-75px;
+
+    font-family:'Great Vibes', cursive;
+
+    font-size:35px;
+
+    color:#444;
+
+}
+
+
+
+/* BOTON PLAY */
+
+
+.play{
+
+    width:55px;
+    height:55px;
+
     border-radius:50%;
+
     border:none;
-    background:#c9a45c;
-    color:white;
-    font-size:28px;
+
+    background:#dedede;
+
     cursor:pointer;
+
+    font-size:22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#222;
+
+    transition:.3s;
+
 }
 
+
+.play:hover{
+
+    transform:scale(1.08);
+
+}
+
+
+
+/* TIEMPO */
+
+.time{
+
+    font-size:13px;
+
+    color:#333;
+
+    white-space:nowrap;
+
+}
+
+
+
+/* BARRA */
 
 .progress{
-    width:100%;
-    margin-top:20px;
+
+    flex:1;
+
 }
 
 
 input[type="range"]{
+
     width:100%;
+
+    height:4px;
+
+    accent-color:#555;
+
+    cursor:pointer;
+
 }
 
 
-.time{
-    display:flex;
-    justify-content:space-between;
-    font-size:14px;
-    color:#555;
-}
+
+/* VOLUMEN */
 
 
 .volume{
-    margin-top:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
 }
+
+
+
+.volume input{
+
+    width:70px;
+
+}
+
+
+
+/* MENU */
+
+
+.menu{
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    color:#444;
+
+}
+
 
 
 </style>
 
 </head>
 
+
 <body>
+
+
+<div class="title">
+Nuestra canción
+</div>
+
 
 
 <div class="player">
 
-<button id="play">▶</button>
+
+<button class="play" id="play">
+▶
+</button>
+
+
+
+<div class="time">
+
+<span id="current">
+0:00
+</span>
+
+/
+
+<span id="duration">
+0:00
+</span>
+
+</div>
+
 
 
 <div class="progress">
 
-<input type="range" id="barra" value="0">
-
-<div class="time">
-<span id="actual">0:00</span>
-<span id="total">0:00</span>
-</div>
+<input type="range" id="bar" value="0">
 
 </div>
+
 
 
 <div class="volume">
-🔊
-<input type="range" id="volumen" min="0" max="1" step="0.01" value="1">
+
+<span>🔊</span>
+
+<input 
+type="range" 
+id="volume"
+min="0"
+max="1"
+step="0.01"
+value="1">
+
 </div>
+
+
+
+<div class="menu">
+⋮
+</div>
+
 
 
 </div>
@@ -109,76 +260,134 @@ input[type="range"]{
 
 <script>
 
-const audio=document.getElementById("audio");
-const play=document.getElementById("play");
-const barra=document.getElementById("barra");
-const volumen=document.getElementById("volumen");
 
-const actual=document.getElementById("actual");
-const total=document.getElementById("total");
+const audio =
+document.getElementById("audio");
 
 
-play.onclick=()=>{
+const play =
+document.getElementById("play");
+
+
+const bar =
+document.getElementById("bar");
+
+
+const volume =
+document.getElementById("volume");
+
+
+const current =
+document.getElementById("current");
+
+
+const duration =
+document.getElementById("duration");
+
+
+
+
+// PLAY PAUSA
+
+play.onclick=function(){
+
 
 if(audio.paused){
+
 audio.play();
+
 play.innerHTML="❚❚";
+
 }
+
 else{
+
 audio.pause();
+
 play.innerHTML="▶";
-}
-
-};
-
-
-audio.addEventListener("loadedmetadata",()=>{
-
-barra.max=audio.duration;
-total.innerHTML=formato(audio.duration);
-
-});
-
-
-audio.ontimeupdate=()=>{
-
-barra.value=audio.currentTime;
-actual.innerHTML=formato(audio.currentTime);
-
-};
-
-
-barra.oninput=()=>{
-
-audio.currentTime=barra.value;
-
-};
-
-
-volumen.oninput=()=>{
-
-audio.volume=volumen.value;
-
-};
-
-
-
-function formato(segundos){
-
-let min=Math.floor(segundos/60);
-let seg=Math.floor(segundos%60);
-
-if(seg<10){
-seg="0"+seg;
-}
-
-return min+":"+seg;
 
 }
+
+
+};
+
+
+
+
+// DURACION
+
+audio.onloadedmetadata=function(){
+
+bar.max=audio.duration;
+
+duration.innerHTML=format(audio.duration);
+
+};
+
+
+
+
+// AVANCE
+
+audio.ontimeupdate=function(){
+
+bar.value=audio.currentTime;
+
+current.innerHTML=format(audio.currentTime);
+
+};
+
+
+
+
+// MOVER CANCION
+
+bar.oninput=function(){
+
+audio.currentTime=bar.value;
+
+};
+
+
+
+
+// VOLUMEN
+
+volume.oninput=function(){
+
+audio.volume=volume.value;
+
+};
+
+
+
+
+
+function format(seconds){
+
+
+let min=Math.floor(seconds/60);
+
+let sec=Math.floor(seconds%60);
+
+
+if(sec<10){
+
+sec="0"+sec;
+
+}
+
+
+return min+":"+sec;
+
+
+}
+
 
 
 </script>
 
 
 </body>
+
 </html>
