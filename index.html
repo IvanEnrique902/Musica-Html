@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reproductor</title>
+
+<style>
+body{
+    margin:0;
+    background:transparent;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+#boton{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:none;
+    background:#ffffff;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+    cursor:pointer;
+    font-size:30px;
+    transition:.3s;
+}
+
+#boton:hover{
+    transform:scale(1.08);
+}
+
+</style>
+
+</head>
+<body>
+
+<button id="boton">▶</button>
+
+<audio id="musica" loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const audio = document.getElementById("musica");
+const boton = document.getElementById("boton");
+
+boton.onclick = ()=>{
+
+    if(audio.paused){
+        audio.play();
+        boton.innerHTML="❚❚";
+    }else{
+        audio.pause();
+        boton.innerHTML="▶";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
