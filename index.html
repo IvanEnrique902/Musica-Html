@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,39 +13,19 @@
 
 
 body{
+
     margin:0;
     height:100vh;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     background:transparent;
-    font-family:Arial, sans-serif;
-}
 
-
-/* CONTENEDOR PRINCIPAL */
-
-.player{
-
-    width:420px;
-    height:85px;
-
-    background:#f1f3f4;
-
-    border-radius:999px;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 25px;
-
-    gap:18px;
-
-    box-shadow:
-    0 8px 25px rgba(0,0,0,0.12);
+    font-family:Arial,sans-serif;
 
 }
-
 
 
 /* TITULO */
@@ -53,11 +34,11 @@ body{
 
     position:absolute;
 
-    margin-top:-75px;
+    margin-top:-55px;
 
-    font-family:'Great Vibes', cursive;
+    font-family:'Great Vibes',cursive;
 
-    font-size:35px;
+    font-size:28px;
 
     color:#444;
 
@@ -65,31 +46,84 @@ body{
 
 
 
-/* BOTON PLAY */
+/* REPRODUCTOR */
 
+.player{
+
+    width:90%;
+
+    max-width:380px;
+
+    min-width:260px;
+
+    height:65px;
+
+
+    background:#f1f3f4;
+
+    border-radius:999px;
+
+
+    display:flex;
+
+    align-items:center;
+
+
+    padding:0 12px;
+
+
+    gap:10px;
+
+
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,0.12);
+
+
+}
+
+
+
+/* BOTON PLAY */
 
 .play{
 
-    width:55px;
-    height:55px;
+
+    width:42px;
+
+    height:42px;
+
+
+    flex-shrink:0;
+
 
     border-radius:50%;
 
+
     border:none;
+
 
     background:#dedede;
 
+
     cursor:pointer;
 
-    font-size:22px;
+
+    font-size:16px;
+
 
     display:flex;
-    align-items:center;
+
     justify-content:center;
+
+    align-items:center;
+
 
     color:#222;
 
+
     transition:.3s;
+
 
 }
 
@@ -102,15 +136,20 @@ body{
 
 
 
+
 /* TIEMPO */
 
 .time{
 
-    font-size:13px;
+
+    font-size:11px;
+
 
     color:#333;
 
+
     white-space:nowrap;
+
 
 }
 
@@ -120,22 +159,31 @@ body{
 
 .progress{
 
+
     flex:1;
 
+
 }
+
 
 
 input[type="range"]{
 
+
     width:100%;
 
-    height:4px;
+
+    height:3px;
+
 
     accent-color:#555;
 
+
     cursor:pointer;
 
+
 }
+
 
 
 
@@ -144,11 +192,24 @@ input[type="range"]{
 
 .volume{
 
+
     display:flex;
 
     align-items:center;
 
-    gap:5px;
+
+    gap:3px;
+
+
+}
+
+
+
+.volume span{
+
+
+    font-size:14px;
+
 
 }
 
@@ -156,9 +217,13 @@ input[type="range"]{
 
 .volume input{
 
-    width:70px;
+
+    width:45px;
+
 
 }
+
+
 
 
 
@@ -167,13 +232,64 @@ input[type="range"]{
 
 .menu{
 
-    font-size:24px;
+
+    font-size:20px;
+
 
     cursor:pointer;
 
+
     color:#444;
 
+
+    flex-shrink:0;
+
+
 }
+
+
+
+
+/* CELULAR */
+
+@media(max-width:350px){
+
+
+.player{
+
+    gap:7px;
+
+    padding:0 10px;
+
+}
+
+
+
+.volume input{
+
+    display:none;
+
+}
+
+
+
+.time{
+
+    font-size:10px;
+
+}
+
+
+
+.menu{
+
+    font-size:18px;
+
+}
+
+
+}
+
 
 
 
@@ -185,68 +301,108 @@ input[type="range"]{
 <body>
 
 
+
 <div class="title">
+
 Nuestra canción
+
 </div>
+
 
 
 
 <div class="player">
 
 
+
 <button class="play" id="play">
+
 ▶
+
 </button>
+
 
 
 
 <div class="time">
 
 <span id="current">
+
 0:00
+
 </span>
+
 
 /
 
+
 <span id="duration">
+
 0:00
+
 </span>
 
+
 </div>
+
 
 
 
 <div class="progress">
 
-<input type="range" id="bar" value="0">
+<input 
+
+type="range"
+
+id="bar"
+
+value="0">
 
 </div>
+
 
 
 
 <div class="volume">
 
-<span>🔊</span>
+
+<span>
+
+🔊
+
+</span>
+
 
 <input 
-type="range" 
+
+type="range"
+
 id="volume"
+
 min="0"
+
 max="1"
+
 step="0.01"
+
 value="1">
 
+
 </div>
+
 
 
 
 <div class="menu">
+
 ⋮
-</div>
-
-
 
 </div>
+
+
+
+</div>
+
 
 
 
@@ -255,6 +411,8 @@ value="1">
 <source src="cancion.mp3" type="audio/mpeg">
 
 </audio>
+
+
 
 
 
@@ -287,24 +445,31 @@ document.getElementById("duration");
 
 
 
-// PLAY PAUSA
+
+// PLAY / PAUSA
 
 play.onclick=function(){
 
 
 if(audio.paused){
 
+
 audio.play();
 
+
 play.innerHTML="❚❚";
+
 
 }
 
 else{
 
+
 audio.pause();
 
+
 play.innerHTML="▶";
+
 
 }
 
@@ -314,28 +479,39 @@ play.innerHTML="▶";
 
 
 
-// DURACION
+
+// CARGAR DURACION
 
 audio.onloadedmetadata=function(){
 
+
 bar.max=audio.duration;
+
 
 duration.innerHTML=format(audio.duration);
 
+
 };
 
 
 
 
-// AVANCE
+
+
+// ACTUALIZAR TIEMPO
 
 audio.ontimeupdate=function(){
 
+
 bar.value=audio.currentTime;
+
 
 current.innerHTML=format(audio.currentTime);
 
+
 };
+
+
 
 
 
@@ -344,9 +520,13 @@ current.innerHTML=format(audio.currentTime);
 
 bar.oninput=function(){
 
+
 audio.currentTime=bar.value;
 
+
 };
+
+
 
 
 
@@ -355,9 +535,12 @@ audio.currentTime=bar.value;
 
 volume.oninput=function(){
 
+
 audio.volume=volume.value;
 
+
 };
+
 
 
 
@@ -368,7 +551,9 @@ function format(seconds){
 
 let min=Math.floor(seconds/60);
 
+
 let sec=Math.floor(seconds%60);
+
 
 
 if(sec<10){
